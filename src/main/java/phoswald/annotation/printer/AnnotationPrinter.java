@@ -7,15 +7,24 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
 
+/**
+ * Utility class for formatting annotations.
+ */
 public class AnnotationPrinter {
 
+    /**
+     * Formats the given annotation.
+     *
+     * @param annotation the annotation to be formatted, must not be null.
+     * @return the annotation formatted using Java Syntax, never null or empty.
+     */
     public String format(Annotation annotation) {
         StringBuilder sb = new StringBuilder();
         formatAnnotation(sb, annotation);
         return sb.toString();
     }
 
-    private void formatAnnotation(StringBuilder sb, Annotation annotation) {
+    private static void formatAnnotation(StringBuilder sb, Annotation annotation) {
         sb.append("@");
         sb.append(annotation.annotationType().getName());
         Method[] methods = annotation.annotationType().getDeclaredMethods();
@@ -28,8 +37,7 @@ public class AnnotationPrinter {
                 sb.append(", ");
             }
             if(!isSingleElement(methods)) {
-                sb.append(methods[index].getName());
-                sb.append('=');
+                sb.append(methods[index].getName()).append('=');
             }
             format(sb, getElement(annotation, methods[index]));
         }
@@ -38,7 +46,7 @@ public class AnnotationPrinter {
         }
     }
 
-    private void formatArray(StringBuilder sb, Object array) {
+    private static void formatArray(StringBuilder sb, Object array) {
         sb.append("{ ");
         int length = Array.getLength(array);
         for(int index = 0; index < length; index++) {
@@ -51,35 +59,15 @@ public class AnnotationPrinter {
         sb.append(" }");
     }
 
-    private void formatClass(StringBuilder sb, Class<?> value) {
+    private static void formatClass(StringBuilder sb, Class<?> value) {
         sb.append(value.getName() + ".class");
     }
 
-    private void formatEnum(StringBuilder sb, Enum<?> value) {
+    private static void formatEnum(StringBuilder sb, Enum<?> value) {
         sb.append(value.getDeclaringClass().getName() + "." + value.name());
     }
 
-    private void appendChar(StringBuilder sb, char c) {
-        switch(c) {
-            case '\t':
-                sb.append("\\t");
-                break;
-            case '\r':
-                sb.append("\\r");
-                break;
-            case '\n':
-                sb.append("\\n");
-                break;
-            case '\'':
-            case '\"':
-            case '\\':
-                sb.append('\\'); // fall through
-            default:
-                sb.append(c);
-        }
-    }
-
-    private void format(StringBuilder sb, Object value) {
+    private static void format(StringBuilder sb, Object value) {
         if(value == null) {
             throw new IllegalArgumentException("Cannot handle null annotation element.");
         } else if(value instanceof Annotation) {
@@ -93,9 +81,9 @@ public class AnnotationPrinter {
         } else if(value instanceof Boolean || value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Double) {
             sb.append(value);
         } else if(value instanceof Character) {
-            sb.append("'");
+            sb.append('\'');
             appendChar(sb, (char) value);
-            sb.append("'");
+            sb.append('\'');
         } else if(value instanceof Long) {
             sb.append(value + "L");
         } else if(value instanceof Float) {
@@ -111,7 +99,28 @@ public class AnnotationPrinter {
         }
     }
 
-    private Object getElement(Annotation annotation, Method method) {
+    private static void appendChar(StringBuilder sb, char c) {
+        switch(c) {
+            case '\t':
+                sb.append("\\t");
+                break;
+            case '\r':
+                sb.append("\\r");
+                break;
+            case '\n':
+                sb.append("\\n");
+                break;
+            case '\'':
+            case '\"':
+            case '\\':
+                sb.append('\\').append(c);
+                break;
+            default:
+                sb.append(c);
+        }
+    }
+
+    private static Object getElement(Annotation annotation, Method method) {
         try {
             return method.invoke(annotation);
         } catch (InvocationTargetException | IllegalAccessException e) {
@@ -119,7 +128,7 @@ public class AnnotationPrinter {
         }
     }
 
-    private boolean isSingleElement(Method[] methods) {
+    private static boolean isSingleElement(Method[] methods) {
         return methods.length == 1 && methods[0].getName().equals("value");
     }
 }
