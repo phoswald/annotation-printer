@@ -12,6 +12,29 @@
   <name>Annotation Printer</name>
   <description>Utility classes for formatting Java annotations</description>
   <url>https://github.com/phoswald/annotation-printer</url>
+  
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Philip Oswald</name>
+      <email>philip.oswald@gmail.com</email>
+      <organization>None</organization>
+      <organizationUrl>https://github.com/phoswald</organizationUrl>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:git://github.com/phoswald/annotation-printer.git</connection>
+    <developerConnection>scm:git:ssh://github.com:phoswald/annotation-printer.git</developerConnection>
+    <url>https://github.com/phoswald/annotation-printer/tree/master</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -38,17 +61,5 @@
       </plugin>
     </plugins>
   </build>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <scm>
-    <url>https://github.com/phoswald/annotation-printer.git</url>
-  </scm>
 
 </project>
