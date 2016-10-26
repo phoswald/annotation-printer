@@ -130,8 +130,8 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/phoswald/annotation-printer.git</connection>
-    <developerConnection>scm:git:ssh://github.com:phoswald/annotation-printer.git</developerConnection>
+    <connection>scm:git:https://github.com/phoswald/annotation-printer.git</connection>
+    <developerConnection>scm:git:https://github.com/phoswald/annotation-printer.git</developerConnection>
     <url>https://github.com/phoswald/annotation-printer/tree/master</url>
   </scm>
 
