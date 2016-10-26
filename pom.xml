@@ -4,10 +4,14 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>phoswald</groupId>
+  <groupId>com.github.phoswald</groupId>
   <artifactId>annotation-printer</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+
+  <name>Annotation Printer</name>
+  <description>Utility classes for formatting Java annotations</description>
+  <url>https://github.com/phoswald/annotation-printer</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -34,5 +38,17 @@
       </plugin>
     </plugins>
   </build>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/phoswald/annotation-printer.git</url>
+  </scm>
 
 </project>
