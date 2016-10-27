@@ -4,7 +4,7 @@
 
   <groupId>com.github.phoswald</groupId>
   <artifactId>annotation-printer</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Annotation Printer</name>
@@ -132,7 +132,7 @@
     <connection>scm:git:https://github.com/phoswald/annotation-printer.git</connection>
     <developerConnection>scm:git:https://github.com/phoswald/annotation-printer.git</developerConnection>
     <url>https://github.com/phoswald/annotation-printer/tree/master</url>
-    <tag>annotation-printer-0.0.3</tag>
+    <tag>annotation-printer-0.0.2</tag>
   </scm>
 
   <distributionManagement>
