@@ -154,6 +154,13 @@ public class AnnotationPrinterTest {
         assertEquals("@phoswald.annotation.printer.annotations.MyArrayOfCharAnnotation({ 'a', 'b', '\\t', '\\r', '\\n', '\\'', '\\\"', '\\\\' })", result);
     }
 
+    @Test
+    public void format_emptyArray_success() {
+        Annotation annotation = AnnotatedEmptyClass.class.getAnnotation(MyArrayOfIntAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyArrayOfIntAnnotation({ })", result);
+    }
+
     @MyMarkerAnnotation
     @MySingleIntAnnotation(42)
     @MySingleStringAnnotation("foo")
@@ -174,4 +181,7 @@ public class AnnotationPrinterTest {
     @MyArrayOfStringAnnotation({ "", "x", " \t \r \n \' \" \\ " })
     @MyArrayOfCharAnnotation({ 'a', 'b', '\t', '\r', '\n', '\'', '\"', '\\' })
     private static class AnnotatedEscapingClass { }
+
+    @MyArrayOfIntAnnotation({ })
+    private static class AnnotatedEmptyClass { }
 }

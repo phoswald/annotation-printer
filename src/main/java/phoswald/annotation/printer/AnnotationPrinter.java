@@ -56,7 +56,10 @@ public class AnnotationPrinter {
             }
             format(sb, element);
         }
-        sb.append(" }");
+        if(length > 0) {
+            sb.append(' ');
+        }
+        sb.append('}');
     }
 
     private static void formatClass(StringBuilder sb, Class<?> value) {
