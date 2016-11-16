@@ -69,11 +69,11 @@ public class AnnotationPrinter {
     }
 
     private static void formatClass(StringBuilder sb, Class<?> value) {
-        sb.append(value.getName() + ".class");
+        sb.append(value.getName().replace('$', '.') + ".class");
     }
 
     private static void formatEnum(StringBuilder sb, Enum<?> value) {
-        sb.append(value.getDeclaringClass().getName() + "." + value.name());
+        sb.append(value.getDeclaringClass().getName().replace('$', '.') + "." + value.name());
     }
 
     private static void format(StringBuilder sb, Object value) {

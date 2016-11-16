@@ -7,11 +7,4 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface MyMarkerAnnotation {
-
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.TYPE)
-    public static @interface InnerAnnotation {
-
-    }
-}
+public @interface MyMarkerAnnotation { }

@@ -15,6 +15,7 @@ import phoswald.annotation.printer.annotations.MyArrayOfClassAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfEnumAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfIntAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfStringAnnotation;
+import phoswald.annotation.printer.annotations.MyClass;
 import phoswald.annotation.printer.annotations.MyDefaultedFullAnnotation;
 import phoswald.annotation.printer.annotations.MyDefaultedSingleAnnotation;
 import phoswald.annotation.printer.annotations.MyEnum;
@@ -145,9 +146,9 @@ public class AnnotationPrinterTest {
 
     @Test
     public void format_innerClass_success() {
-        Annotation annotation = AnnotatedClass.class.getAnnotation(MyMarkerAnnotation.InnerAnnotation.class);
+        Annotation annotation = AnnotatedClass.class.getAnnotation(MyClass.InnerAnnotation.class);
         String result = testee.format(annotation);
-        assertEquals("@phoswald.annotation.printer.annotations.MyMarkerAnnotation.InnerAnnotation", result);
+        assertEquals("@phoswald.annotation.printer.annotations.MyClass.InnerAnnotation(myClass=phoswald.annotation.printer.annotations.MyClass.InnerClass.class, myEnum=phoswald.annotation.printer.annotations.MyClass.InnerEnum.VALUE_1)", result);
     }
 
     @Test
@@ -214,7 +215,7 @@ public class AnnotationPrinterTest {
     @MyNormalPrimitivesAnnotation(myFlag=true, myByte=123, myShort=1234, myChar='x', myInt=1234567890, myLong=123456789012L, myFloat=12.34F, myDouble=3.14)
     @MyFullAnnotation(myClass=Serializable.class, myClassList={ Serializable.class }, myEnum=MyEnum.VALUE_1, myEnumList={ MyEnum.VALUE_1 }, myInt=42, myIntList={42, 43}, myObject=@MySingleIntAnnotation(42), myObjectList={ @MySingleIntAnnotation(43) }, myString="foo", myStringList={ "bar" })
     @MyMixedAnnotation(value="value", value2="value2")
-    @MyMarkerAnnotation.InnerAnnotation
+    @MyClass.InnerAnnotation(myEnum=MyClass.InnerEnum.VALUE_1, myClass=MyClass.InnerClass.class)
     private static class AnnotatedClass { }
 
     @MyArrayOfStringAnnotation({ "", "x", " \t \r \n \' \" \\ " })
