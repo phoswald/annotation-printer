@@ -26,7 +26,7 @@ public class AnnotationPrinter {
 
     private static void formatAnnotation(StringBuilder sb, Annotation annotation) {
         sb.append("@");
-        sb.append(annotation.annotationType().getName());
+        sb.append(annotation.annotationType().getName().replace('$', '.'));
         Method[] methods = annotation.annotationType().getDeclaredMethods();
         Arrays.sort(methods, Comparator.comparing(Method::getName));
         if(methods.length > 0) {

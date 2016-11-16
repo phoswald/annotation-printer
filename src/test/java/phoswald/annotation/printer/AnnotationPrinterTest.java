@@ -141,6 +141,13 @@ public class AnnotationPrinterTest {
     }
 
     @Test
+    public void format_innerClass_success() {
+        Annotation annotation = AnnotatedClass.class.getAnnotation(MyMarkerAnnotation.InnerAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyMarkerAnnotation.InnerAnnotation", result);
+    }
+
+    @Test
     public void format_escapeStrings_success() {
         Annotation annotation = AnnotatedEscapingClass.class.getAnnotation(MyArrayOfStringAnnotation.class);
         String result = testee.format(annotation);
@@ -176,6 +183,7 @@ public class AnnotationPrinterTest {
     @MyNormalPrimitivesAnnotation(myFlag=true, myByte=123, myShort=1234, myChar='x', myInt=1234567890, myLong=123456789012L, myFloat=12.34F, myDouble=3.14)
     @MyFullAnnotation(myClass=Serializable.class, myClassList={ Serializable.class }, myEnum=MyEnum.VALUE_1, myEnumList={ MyEnum.VALUE_1 }, myInt=42, myIntList={42, 43}, myObject=@MySingleIntAnnotation(42), myObjectList={ @MySingleIntAnnotation(43) }, myString="foo", myStringList={ "bar" })
     @MyMixedAnnotation(value="value", value2="value2")
+    @MyMarkerAnnotation.InnerAnnotation
     private static class AnnotatedClass { }
 
     @MyArrayOfStringAnnotation({ "", "x", " \t \r \n \' \" \\ " })
