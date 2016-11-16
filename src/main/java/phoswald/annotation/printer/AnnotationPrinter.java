@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * Utility class for formatting annotations.
@@ -29,19 +30,24 @@ public class AnnotationPrinter {
         sb.append(annotation.annotationType().getName().replace('$', '.'));
         Method[] methods = annotation.annotationType().getDeclaredMethods();
         Arrays.sort(methods, Comparator.comparing(Method::getName));
-        if(methods.length > 0) {
-            sb.append('(');
-        }
-        for(int index = 0; index < methods.length; index++) {
-            if(index > 0) {
+        int count = 0;
+        for(Method method : methods) {
+            Object value = getElement(annotation, method);
+            if(value == null) {
+                continue;
+            }
+            if(count == 0) {
+                sb.append('(');
+            } else {
                 sb.append(", ");
             }
             if(!isSingleElement(methods)) {
-                sb.append(methods[index].getName()).append('=');
+                sb.append(method.getName()).append('=');
             }
-            format(sb, getElement(annotation, methods[index]));
+            format(sb, value);
+            count++;
         }
-        if(methods.length > 0) {
+        if(count > 0) {
             sb.append(')');
         }
     }
@@ -125,7 +131,12 @@ public class AnnotationPrinter {
 
     private static Object getElement(Annotation annotation, Method method) {
         try {
-            return method.invoke(annotation);
+            Object defaultValue = method.getDefaultValue();
+            Object value = method.invoke(annotation);
+            if(Objects.deepEquals(defaultValue, value)) {
+                return null;
+            }
+            return value;
         } catch (InvocationTargetException | IllegalAccessException e) {
             throw new IllegalArgumentException("Failed to inspect annotation.", e);
         }

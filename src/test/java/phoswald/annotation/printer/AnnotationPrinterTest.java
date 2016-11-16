@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,6 +15,8 @@ import phoswald.annotation.printer.annotations.MyArrayOfClassAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfEnumAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfIntAnnotation;
 import phoswald.annotation.printer.annotations.MyArrayOfStringAnnotation;
+import phoswald.annotation.printer.annotations.MyDefaultedFullAnnotation;
+import phoswald.annotation.printer.annotations.MyDefaultedSingleAnnotation;
 import phoswald.annotation.printer.annotations.MyEnum;
 import phoswald.annotation.printer.annotations.MyFullAnnotation;
 import phoswald.annotation.printer.annotations.MyMarkerAnnotation;
@@ -168,6 +171,34 @@ public class AnnotationPrinterTest {
         assertEquals("@phoswald.annotation.printer.annotations.MyArrayOfIntAnnotation({ })", result);
     }
 
+    @Test
+    public void format_defaultedSingle_success() {
+        Annotation annotation = AnnotatedDefaultedClass.class.getAnnotation(MyDefaultedSingleAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyDefaultedSingleAnnotation", result);
+    }
+
+    @Test
+    public void format_defaultedFull_success() {
+        Annotation annotation = AnnotatedDefaultedClass.class.getAnnotation(MyDefaultedFullAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyDefaultedFullAnnotation", result);
+    }
+
+    @Test
+    public void format_defaultOverriddenSingle_success() {
+        Annotation annotation = AnnotatedDefaultOverriddenClass.class.getAnnotation(MyDefaultedSingleAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyDefaultedSingleAnnotation(\"HI\")", result);
+    }
+
+    @Test
+    public void format_defaultOverriddenFull_success() {
+        Annotation annotation = AnnotatedDefaultOverriddenClass.class.getAnnotation(MyDefaultedFullAnnotation.class);
+        String result = testee.format(annotation);
+        assertEquals("@phoswald.annotation.printer.annotations.MyDefaultedFullAnnotation(myClass=java.util.Collection.class, myClassList={ }, myEmptyClassList={ java.lang.Object.class }, myInt=43, myString=\"HI\")", result);
+    }
+
     @MyMarkerAnnotation
     @MySingleIntAnnotation(42)
     @MySingleStringAnnotation("foo")
@@ -192,4 +223,12 @@ public class AnnotationPrinterTest {
 
     @MyArrayOfIntAnnotation({ })
     private static class AnnotatedEmptyClass { }
+
+    @MyDefaultedSingleAnnotation
+    @MyDefaultedFullAnnotation
+    private static class AnnotatedDefaultedClass { }
+
+    @MyDefaultedSingleAnnotation("HI")
+    @MyDefaultedFullAnnotation(myClass=Collection.class, myClassList={}, myEmptyClassList={Object.class}, myInt=43, myString="HI")
+    private static class AnnotatedDefaultOverriddenClass { }
 }
