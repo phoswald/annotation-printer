@@ -1,4 +1,4 @@
-package phoswald.annotation.printer.annotations;
+package com.github.phoswald.annotation.printer.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

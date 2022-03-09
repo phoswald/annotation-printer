@@ -1,4 +1,4 @@
-package phoswald.annotation.printer.annotations;
+package com.github.phoswald.annotation.printer.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,9 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface MyMixedAnnotation {
+public @interface MyArrayOfEnumAnnotation {
 
-    public String value();
-
-    public String value2();
+    public MyEnum[] value();
 }

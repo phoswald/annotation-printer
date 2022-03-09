@@ -1,4 +1,4 @@
-package phoswald.annotation.printer;
+package com.github.phoswald.annotation.printer;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
